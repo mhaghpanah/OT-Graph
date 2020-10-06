@@ -2,6 +2,8 @@ This is a java program to draw OT-graph for order types.
 The program takes order-types database and OT-graph database and draw them in an Ipe format.
 Ipe (http://ipe.otfried.org/) is a drawing editor written by Otfried Cheong for creating figures in PDF format.
 
+To run the program, download Release.zip file and unzip it. The Release.zip contains compiled program, order-types database and OT-graph database.
+
 Program instruction:
 
 To run the program, 
