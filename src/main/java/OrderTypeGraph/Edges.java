@@ -20,6 +20,17 @@ public class Edges {
     }
   }
 
+  public static Edges completeGraph(int n) {
+    Edges edges = new Edges(n);
+    for (int i = 0; i < n; i++) {
+      for (int j = i + 1; j < n; j++) {
+        Edge edge = new Edge(i, j);
+        edges.add(edge);
+      }
+    }
+    return edges;
+  }
+
   public static int bitFormatSize(int n) {
     return (n * n + 7) / 8;
   }
