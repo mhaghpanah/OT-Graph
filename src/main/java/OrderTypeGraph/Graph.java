@@ -3,52 +3,52 @@ package OrderTypeGraph;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Edges {
+public class Graph {
 
   protected int n;
   protected List<Edge> edges;
 
-  public Edges(int n) {
+  public Graph(int n) {
     this.n = n;
     edges = new ArrayList<>();
   }
 
-  public Edges(int n, List<Edge> edges) {
+  public Graph(int n, List<Edge> edges) {
     this(n);
     for (Edge e : edges) {
       this.edges.add(new Edge(e));
     }
   }
 
-  public static Edges completeGraph(int n) {
-    Edges edges = new Edges(n);
+  public static Graph completeGraph(int n) {
+    Graph graph = new Graph(n);
     for (int i = 0; i < n; i++) {
       for (int j = i + 1; j < n; j++) {
         Edge edge = new Edge(i, j);
-        edges.add(edge);
+        graph.addEdge(edge);
       }
     }
-    return edges;
+    return graph;
   }
 
   public static int bitFormatSize(int n) {
     return (n * n + 7) / 8;
   }
 
-  public static Edges toEdge(byte[] bytes, int n) {
-    Edges edges = new Edges(n);
+  public static Graph toGraph(byte[] bytes, int n) {
+    Graph graph = new Graph(n);
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < n; j++) {
         int t = i * n + j;
         if ((bytes[t / 8] & (1 << (t % 8))) != 0) {
-          edges.add(new Edge(i, j));
+          graph.addEdge(new Edge(i, j));
         }
       }
     }
-    return edges;
+    return graph;
   }
 
-  public Edge get(int i) {
+  public Edge getEdge(int i) {
     return edges.get(i);
   }
 
@@ -60,7 +60,7 @@ public class Edges {
     return edges.size();
   }
 
-  public boolean add(Edge e) {
+  public boolean addEdge(Edge e) {
     edges.add(e);
     return true;
   }
@@ -79,16 +79,16 @@ public class Edges {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Graph)) {
       return false;
     }
 
-    Edges edges1 = (Edges) o;
+    Graph graph = (Graph) o;
 
-    if (n != edges1.n) {
+    if (n != graph.n) {
       return false;
     }
-    return edges.equals(edges1.edges);
+    return edges.equals(graph.edges);
   }
 
   @Override
@@ -100,8 +100,9 @@ public class Edges {
 
   @Override
   public String toString() {
-    return "Edges{" +
-        "edges=" + edges +
+    return "Graph{" +
+        "n=" + n +
+        ", edges=" + edges +
         '}';
   }
 }
