@@ -29,7 +29,7 @@ public class GraphTest {
   }
 
   @Test
-  public void toEdge() {
+  public void toGraph() {
     byte[] bytes0 = graph0.toBytes();
     Graph ans0 = Graph.toGraph(bytes0, n);
 
@@ -44,7 +44,7 @@ public class GraphTest {
   }
 
   @Test
-  public void get() {
+  public void getEdge() {
     assertEquals(graph0.getEdge(0), graph1.getEdge(0));
     assertEquals(graph0.getEdge(1), graph1.getEdge(1));
     assertNotEquals(graph0.getEdge(2), graph1.getEdge(0));
@@ -65,7 +65,7 @@ public class GraphTest {
   }
 
   @Test
-  public void add() {
+  public void addEdge() {
     Graph graph = new Graph(n);
     graph.addEdge(e0);
     assertNotEquals(graph, graph1);
