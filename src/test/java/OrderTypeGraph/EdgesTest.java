@@ -79,4 +79,12 @@ public class EdgesTest {
     assertEquals((n * n + 7) / 8, bytes.length);
     assertEquals((n * n + 7) / 8, Edges.bitFormatSize(n));
   }
+
+  @Test
+  public void completeGraph() {
+    for (int n : new int[]{1, 2, 3, 4, 5}) {
+      Edges completeGraph = Edges.completeGraph(n);
+      assertEquals((n * (n - 1)) / 2, completeGraph.size());
+    }
+  }
 }
