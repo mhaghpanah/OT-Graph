@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Graph {
 
-  protected int n;
-  protected List<Edge> edges;
+  private final int n;
+  private final List<Edge> edges;
 
   public Graph(int n) {
     this.n = n;
@@ -18,6 +18,10 @@ public class Graph {
     for (Edge e : edges) {
       this.edges.add(new Edge(e));
     }
+  }
+
+  public Graph(Graph graph) {
+    this(graph.verticesNumber(), graph.getEdges());
   }
 
   public static Graph completeGraph(int n) {
@@ -56,13 +60,14 @@ public class Graph {
     return edges;
   }
 
-  public int size() {
+  public int verticesNumber() { return n; }
+
+  public int edgesNumber() {
     return edges.size();
   }
 
-  public boolean addEdge(Edge e) {
+  public void addEdge(Edge e) {
     edges.add(e);
-    return true;
   }
 
   public byte[] toBytes() {
