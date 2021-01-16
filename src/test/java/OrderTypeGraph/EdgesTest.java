@@ -1,107 +1,90 @@
 package OrderTypeGraph;
 
-import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import java.util.Arrays;
 import java.util.List;
+import org.junit.Test;
 
-public class Edges {
+public class EdgesTest {
 
-  protected int n;
-  protected List<Edge> edges;
+  int n;
 
-  public Edges(int n) {
-    this.n = n;
-    edges = new ArrayList<>();
+  Edges edges0;
+  Edges edges1;
+
+  Edge e0 = new Edge(0, 1);
+  Edge e1 = new Edge(2, 9);
+  Edge e2 = new Edge(4, 2);
+  Edge e3 = new Edge(5, 9);
+
+  List<Edge> edgeList0 = Arrays.asList(e0, e1, e2, e3);
+  List<Edge> edgeList1 = Arrays.asList(e0, e1);
+
+  public EdgesTest() {
+    n = 100;
+    edges0 = new Edges(n, edgeList0);
+    edges1 = new Edges(n, edgeList1);
   }
 
-  public Edges(int n, List<Edge> edges) {
-    this(n);
-    for (Edge e : edges) {
-      this.edges.add(new Edge(e));
-    }
+  @Test
+  public void toEdge() {
+    byte[] bytes0 = edges0.toBytes();
+    Edges ans0 = Edges.toEdge(bytes0, n);
+
+    byte[] bytes1 = edges1.toBytes();
+    Edges ans1 = Edges.toEdge(bytes1, n);
+
+    assertEquals(edges0, ans0);
+    assertNotEquals(edges1, ans0);
+
+    assertEquals(edges1, ans1);
+    assertNotEquals(edges0, ans1);
   }
 
-  public static Edges completeGraph(int n) {
+  @Test
+  public void get() {
+    assertEquals(edges0.get(0), edges1.get(0));
+    assertEquals(edges0.get(1), edges1.get(1));
+    assertNotEquals(edges0.get(2), edges1.get(0));
+    assertNotEquals(edges0.get(3), edges1.get(1));
+  }
+
+  @Test
+  public void getEdges() {
+    assertEquals(edgeList0, edges0.getEdges());
+    assertEquals(edgeList1, edges1.getEdges());
+    assertNotEquals(edgeList0, edges1.getEdges());
+  }
+
+  @Test
+  public void size() {
+    assertEquals(4, edges0.size());
+    assertEquals(2, edges1.size());
+  }
+
+  @Test
+  public void add() {
     Edges edges = new Edges(n);
-    for (int i = 0; i < n; i++) {
-      for (int j = i + 1; j < n; j++) {
-        Edge edge = new Edge(i, j);
-        edges.add(edge);
-      }
+    edges.add(e0);
+    assertNotEquals(edges, edges1);
+    edges.add(e1);
+    assertEquals(edges, edges1);
+  }
+
+  @Test
+  public void bitFormatSize() {
+    byte[] bytes = edges0.toBytes();
+    assertEquals((n * n + 7) / 8, bytes.length);
+    assertEquals((n * n + 7) / 8, Edges.bitFormatSize(n));
+  }
+
+  @Test
+  public void completeGraph() {
+    for (int n : new int[]{1, 2, 3, 4, 5}) {
+      Edges completeGraph = Edges.completeGraph(n);
+      assertEquals((n * (n - 1)) / 2, completeGraph.size());
     }
-    return edges;
-  }
-
-  public static int bitFormatSize(int n) {
-    return (n * n + 7) / 8;
-  }
-
-  public static Edges toEdge(byte[] bytes, int n) {
-    Edges edges = new Edges(n);
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < n; j++) {
-        int t = i * n + j;
-        if ((bytes[t / 8] & (1 << (t % 8))) != 0) {
-          edges.add(new Edge(i, j));
-        }
-      }
-    }
-    return edges;
-  }
-
-  public Edge get(int i) {
-    return edges.get(i);
-  }
-
-  public List<Edge> getEdges() {
-    return edges;
-  }
-
-  public int size() {
-    return edges.size();
-  }
-
-  public boolean add(Edge e) {
-    edges.add(e);
-    return true;
-  }
-
-  public byte[] toBytes() {
-    byte[] ans = new byte[bitFormatSize(n)];
-    for (Edge e : getEdges()) {
-      int t = e.getU() * n + e.getV();
-      ans[t / 8] |= (1 << (t % 8));
-    }
-    return ans;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-
-    Edges edges1 = (Edges) o;
-
-    if (n != edges1.n) {
-      return false;
-    }
-    return edges.equals(edges1.edges);
-  }
-
-  @Override
-  public int hashCode() {
-    int result = n;
-    result = 31 * result + edges.hashCode();
-    return result;
-  }
-
-  @Override
-  public String toString() {
-    return "Edges{" +
-        "edges=" + edges +
-        '}';
   }
 }
