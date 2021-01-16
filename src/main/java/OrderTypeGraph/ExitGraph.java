@@ -3,19 +3,18 @@ package OrderTypeGraph;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExitGraph {
+public class ExitGraph extends PlanarGraph {
 
-  Edges edges;
   List<Integer> witnesses;
 
-  public ExitGraph(int n) {
-    edges = new Edges(n);
+  public ExitGraph(Points points) {
+    super(points);
     witnesses = new ArrayList<>();
   }
 
   public static ExitGraph generateGraph(Points points) {
     int n = points.size();
-    ExitGraph exitGraph = new ExitGraph(n);
+    ExitGraph exitGraph = new ExitGraph(points);
 
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < i; j++) {
@@ -51,7 +50,7 @@ public class ExitGraph {
           }
 
           if (found) {
-            exitGraph.add(edge, k);
+            exitGraph.addEdge(edge, k);
             break;
           }
 
@@ -64,31 +63,30 @@ public class ExitGraph {
     return exitGraph;
   }
 
-  public Edges getExitEdges() {
-    return edges;
+  public void addEdge(Edge e) {
+    throw new UnsupportedOperationException();
   }
 
-  public int size() {
-    return edges.size();
-  }
-
-  public boolean add(Edge e, int w) {
-    edges.add(e);
+  public void addEdge(Edge e, int w) {
+    addEdge(e);
     witnesses.add(w);
-    return true;
+  }
+
+  public int getWitness(int i) {
+    return witnesses.get(i);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("#");
-    sb.append(size());
+    sb.append(edgesNumber());
     sb.append(" ");
     sb.append("{");
-    for (int i = 0; i < edges.size(); i++) {
+    for (int i = 0; i < edgesNumber(); i++) {
       sb.append(String
-          .format("(%d, %d, %d)", edges.get(i).getU(), edges.get(i).getV(), witnesses.get(i)));
-      if (i + 1 < edges.size()) {
+          .format("(%d, %d, %d)", getEdge(i).getU(), getEdge(i).getV(), getWitness(i)));
+      if (i + 1 < edgesNumber()) {
         sb.append(",");
       }
     }
