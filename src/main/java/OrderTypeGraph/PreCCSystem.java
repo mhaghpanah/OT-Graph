@@ -184,13 +184,13 @@ public class PreCCSystem {
         .append(", relation=")
         .append(Arrays.deepToString(relation))
         .append("}\n");
-    
+
     for (int i = 0; i < n; i++) {
       sb.append(String.format("i = %d ", i))
           .append(Arrays.deepToString(relation[i]))
           .append("\n");
     }
-    
+
     return sb.toString();
   }
 
