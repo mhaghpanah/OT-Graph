@@ -5,32 +5,42 @@ import java.io.IOException;
 
 public class MyFile {
 
-  String pathname;
-  File file;
+  enum Address {
+    ROOT, RESULTS, RESOURCE
+  }
 
-  public MyFile(String suffixPath, boolean rootPath) {
-    if (rootPath) {
+  private String pathname;
+  private File file;
+
+  public MyFile(String suffixPath, Address prefix) {
+    if (prefix == Address.ROOT) {
       pathname = suffixPath;
-    } else {
+    } else if (prefix == Address.RESULTS) {
       pathname = String.join(File.separator,
           System.getProperty("user.dir"), "results", suffixPath);
+    } else if (prefix == Address.RESOURCE) {
+      pathname = String.join(File.separator,
+          System.getProperty("user.dir"), "src", "main", "resources", suffixPath);
     }
     System.err.printf("MyFile class is processing %s\n", pathname);
     createFile();
   }
 
-  public static File getInstance(String suffixPath, boolean rootPath) {
-    MyFile myFile = new MyFile(suffixPath, rootPath);
+  public static File getInstance(String suffixPath, Address prefix) {
+    MyFile myFile = new MyFile(suffixPath, prefix);
     return myFile.getFile();
   }
 
-  public static boolean isExists(String suffixPath, boolean rootPath) {
-    String pathname;
-    if (rootPath) {
+  public static boolean isExists(String suffixPath, Address prefix) {
+    String pathname = null;
+    if (prefix == Address.ROOT) {
       pathname = suffixPath;
-    } else {
+    } else if (prefix == Address.RESULTS) {
       pathname = String.join(File.separator,
           System.getProperty("user.dir"), "results", suffixPath);
+    } else if (prefix == Address.RESOURCE) {
+      pathname = String.join(File.separator,
+          System.getProperty("user.dir"), "src", "main", "resources", suffixPath);
     }
     System.err.printf("MyFile class is processing %s\n", pathname);
     File file = new File(pathname);
