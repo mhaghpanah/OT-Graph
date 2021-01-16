@@ -1,26 +1,76 @@
 package OrderTypeGraph;
 
-public class Edge {
+import java.util.ArrayList;
+import java.util.List;
 
-  Integer u;
-  Integer v;
+public class Graph {
 
-  public Edge(int u, int v) {
-    this.u = u;
-    this.v = v;
+  protected int n;
+  protected List<Edge> edges;
+
+  public Graph(int n) {
+    this.n = n;
+    edges = new ArrayList<>();
   }
 
-  public Edge(Edge e) {
-    u = e.getU();
-    v = e.getV();
+  public Graph(int n, List<Edge> edges) {
+    this(n);
+    for (Edge e : edges) {
+      this.edges.add(new Edge(e));
+    }
   }
 
-  public int getU() {
-    return u;
+  public static Graph completeGraph(int n) {
+    Graph graph = new Graph(n);
+    for (int i = 0; i < n; i++) {
+      for (int j = i + 1; j < n; j++) {
+        Edge edge = new Edge(i, j);
+        graph.addEdge(edge);
+      }
+    }
+    return graph;
   }
 
-  public int getV() {
-    return v;
+  public static int bitFormatSize(int n) {
+    return (n * n + 7) / 8;
+  }
+
+  public static Graph toGraph(byte[] bytes, int n) {
+    Graph graph = new Graph(n);
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        int t = i * n + j;
+        if ((bytes[t / 8] & (1 << (t % 8))) != 0) {
+          graph.addEdge(new Edge(i, j));
+        }
+      }
+    }
+    return graph;
+  }
+
+  public Edge getEdge(int i) {
+    return edges.get(i);
+  }
+
+  public List<Edge> getEdges() {
+    return edges;
+  }
+
+  public int size() {
+    return edges.size();
+  }
+
+  public void addEdge(Edge e) {
+    edges.add(e);
+  }
+
+  public byte[] toBytes() {
+    byte[] ans = new byte[bitFormatSize(n)];
+    for (Edge e : getEdges()) {
+      int t = e.getU() * n + e.getV();
+      ans[t / 8] |= (1 << (t % 8));
+    }
+    return ans;
   }
 
   @Override
@@ -28,30 +78,30 @@ public class Edge {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof Graph)) {
       return false;
     }
 
-    Edge edge = (Edge) o;
+    Graph graph = (Graph) o;
 
-    if (!u.equals(edge.u)) {
+    if (n != graph.n) {
       return false;
     }
-    return v.equals(edge.v);
+    return edges.equals(graph.edges);
   }
 
   @Override
   public int hashCode() {
-    int result = u.hashCode();
-    result = 31 * result + v.hashCode();
+    int result = n;
+    result = 31 * result + edges.hashCode();
     return result;
   }
 
   @Override
   public String toString() {
-    return "Edge{" +
-        "u=" + u +
-        ", v=" + v +
+    return "Graph{" +
+        "n=" + n +
+        ", edges=" + edges +
         '}';
   }
 }
