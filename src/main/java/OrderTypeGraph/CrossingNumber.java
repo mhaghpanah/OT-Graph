@@ -8,12 +8,16 @@ public class CrossingNumber {
   public Points points;
   public Graph graph;
   public List<Cross> crosses;
-  
+
   public CrossingNumber(Points points, Graph graph) {
     this.points = points;
     this.graph = graph;
     crosses = new ArrayList<>();
     computeCrossingNumber();
+  }
+
+  public CrossingNumber(PlanarGraph planarGraph) {
+    this(planarGraph.getPoints(), planarGraph);
   }
 
   public static int CrossingNumberCalc(Points points, Graph graph) {
@@ -22,7 +26,7 @@ public class CrossingNumber {
   }
 
   private void computeCrossingNumber() {
-    int m = graph.size();
+    int m = graph.getM();
     for (int i = 0; i < m; i++) {
       for (int j = i + 1; j < m; j++) {
         Point a = points.get(graph.getEdge(i).getU());
