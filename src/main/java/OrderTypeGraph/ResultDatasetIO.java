@@ -20,7 +20,7 @@ public class ResultDatasetIO {
         myBinaryFileIO.length() == 0 || myBinaryFileIO.length() == (long) datasetSize * resultSize;
 
     if (myBinaryFileIO.length() == 0) {
-      Edges completeGraph = Edges.completeGraph(n);
+      Graph completeGraph = Graph.completeGraph(n);
       byte[] completeGraphBytes = completeGraph.toBytes();
       assert completeGraphBytes.length == resultSize;
       byte[] bytes = new byte[datasetSize * resultSize];
@@ -34,9 +34,8 @@ public class ResultDatasetIO {
 
   }
 
-
   public ResultDatasetIO(int n, String suffixPath) {
-    this(n, Database.read(n).size(), Edges.bitFormatSize(n), suffixPath);
+    this(n, Database.read(n).size(), Graph.bitFormatSize(n), suffixPath);
   }
 
   public int getN() {
@@ -51,9 +50,9 @@ public class ResultDatasetIO {
     return myBinaryFileIO.readFile(index * resultSize, resultSize);
   }
 
-  public Edges getEdges(int index) {
+  public Graph getEdges(int index) {
     byte[] bytes = getBytes(index);
-    return Edges.toEdge(bytes, getN());
+    return Graph.toGraph(bytes, getN());
   }
 
   public void setBytes(int index, byte[] bytes) {
@@ -61,8 +60,8 @@ public class ResultDatasetIO {
     myBinaryFileIO.writeFile(index * resultSize, bytes);
   }
 
-  public void setEdges(int index, Edges edges) {
-    setBytes(index, edges.toBytes());
+  public void setEdges(int index, Graph graph) {
+    setBytes(index, graph.toBytes());
   }
 
 }
