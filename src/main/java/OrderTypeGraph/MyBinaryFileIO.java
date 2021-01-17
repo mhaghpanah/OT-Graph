@@ -1,5 +1,6 @@
 package OrderTypeGraph;
 
+import OrderTypeGraph.MyFile.Address;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -9,7 +10,7 @@ public class MyBinaryFileIO {
   File file;
 
   public MyBinaryFileIO(String suffixPath) {
-    file = MyFile.getInstance(suffixPath, false);
+    file = MyFile.getInstance(suffixPath, Address.ROOT);
   }
 
   public static boolean write(String pathname, byte[] bytes) {
