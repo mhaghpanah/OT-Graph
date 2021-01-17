@@ -112,7 +112,7 @@ public class GUI extends JFrame {
             graph = new Graph(n);
           }
 
-          ans = PlanarGraphIpeDrawer.draw(points, graph, addText);
+          ans = PlanarGraphIpeDrawer.draw(graph, points, addText);
           saveFile(n, id, comboBoxTypeValue, ans);
         }
 
