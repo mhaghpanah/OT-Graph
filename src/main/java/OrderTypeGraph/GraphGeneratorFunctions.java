@@ -56,9 +56,9 @@ public class GraphGeneratorFunctions extends GraphGenerator {
     PlanarGraph ans = PlanarGraph.completeGraph(points);
     for (int i = 0; i < repeatNum; i++) {
       Graph graph = generateGraph(goal, algorithmType, rules);
-      PlanarGraph planarEdges = new PlanarGraph(graph, points);
-      if (planarEdges.compareTo(ans) < 0) {
-        ans = planarEdges;
+      PlanarGraph planarGraph = new PlanarGraph(graph, points);
+      if (planarGraph.compareTo(ans) < 0) {
+        ans = planarGraph;
       }
       System.out.printf("Iteration: %d Best so far: %d\n", i, ans.getM());
     }
