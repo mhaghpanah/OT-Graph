@@ -39,19 +39,18 @@ public class PlanarGraphIpeDrawer {
     this(planarGraph, planarGraph.getPoints(), addText);
   }
 
-  public static String draw(PlanarGraph planarGraph, boolean addText) {
-    PlanarGraphIpeDrawer pgid = new PlanarGraphIpeDrawer(planarGraph, addText);
+  public static String draw(Graph graph, Points points, boolean addText) {
+    PlanarGraphIpeDrawer pgid = new PlanarGraphIpeDrawer(graph, points, addText);
     return pgid.output();
   }
 
-  public static String draw(Points points, Graph graph, boolean addText) {
-    PlanarGraph planarGraph = new PlanarGraph(graph, points);
-    return draw(planarGraph, addText);
+  public static void drawAndWrite(PlanarGraph planarGraph, String suffixPathOutput, boolean addText) {
+    drawAndWrite(planarGraph, planarGraph.getPoints(), suffixPathOutput, addText);
   }
 
-  public static void drawAndWrite(PlanarGraph planarGraph, String suffixPathOutput,
-      boolean addText) {
-    MyFileWriter.write(suffixPathOutput + ".ipe", PlanarGraphIpeDrawer.draw(planarGraph, addText));
+  public static void drawAndWrite(Graph graph, Points points, String suffixPathOutput, boolean addText) {
+    MyFileWriter
+        .write(suffixPathOutput + ".ipe", PlanarGraphIpeDrawer.draw(graph, points, addText));
   }
 
   private double computeScaleFactor() {
@@ -106,53 +105,5 @@ public class PlanarGraphIpeDrawer {
   public String output() {
     return output.toString();
   }
-
-//  public static void draw(String filenamePoints, String filenameOutput, boolean[] rules)
-//      throws FileNotFoundException {
-////    String pathnamePoints = String.join(File.separator,
-////        System.getProperty("user.dir"), "src", "main", "resources", filenamePoints);
-////
-////    File inputFile = new File(pathnamePoints);
-//    MyFile myFile = new MyFile(filenamePoints, Address.RESOURCE);
-//    Scanner in = new Scanner(myFile.getFile());
-//    Points points = new Points(in);
-//
-//    draw(points, filenameOutput,  10_000, 1, rules);
-//  }
-
-//  public static int draw(Points points, String filenameOutput, int repeatNum, int algorithmType, boolean[] rules) {
-//    Random rand = new Random();
-//
-//    Graph ans = new Graph(points.size());
-//    for (int i = 0; i < repeatNum; i++) {
-//      Graph graph = GraphGeneratorFunctions.
-//          generateGraph(points.computeCCSystem(), algorithmType, rules);
-//
-//      if (ans.getM() == 0 || graph.getM() < ans.getM()) {
-//        ans = graph;
-//        int randSuffix = Math.abs(rand.nextInt());
-//        Proofs ansProof = GraphGenerator.computeCCClosure(points.computeCCSystem(), ans, rules);
-//
-//        String suffixPathOutput = String.join(File.separator,
-//            String.format("%s_n%02d_e%02d_c%04d_r%010d",
-//                filenameOutput, points.size(), ans.getM(), ansProof.getProofsComplexity(),
-//                randSuffix));
-//        boolean addText = true;
-//        MyFileWriter.write(suffixPathOutput + ".ipe", PlanarGraphIpeDrawer.draw(points, ans, addText));
-//        MyFileWriter.write(suffixPathOutput + ".pro", ansProof.toString());
-//
-//      }
-//
-//      if (i % 1000 == 0) {
-//        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
-//      }
-//
-//    }
-//
-//    System.out.printf("size edges: %d %s\n", ans.getM(), ans);
-////    Proofs simplifiedProofs = GraphGenerator.simplifyProofs(points.computeCCSystem(), ans);
-////    System.out.printf("proof size: %d %s\n", simplifiedProofs.size(), simplifiedProofs);
-//    return ans.getM();
-//  }
 
 }
