@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class MyFile {
 
-  enum Address {
+  public enum Address {
     ROOT, RESULTS, RESOURCE
   }
 
