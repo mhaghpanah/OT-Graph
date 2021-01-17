@@ -81,6 +81,11 @@ public class Graph {
     return ans;
   }
 
+  public int compareTo(Graph that) {
+    assert that != null;
+    return Integer.compare(this.getM(), that.getM());
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
