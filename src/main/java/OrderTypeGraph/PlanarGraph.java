@@ -11,9 +11,13 @@ public class PlanarGraph extends Graph {
   }
 
   public PlanarGraph(Graph graph, Points points) {
-    super(graph.edgesNumber());
-    assert points.size() == graph.verticesNumber();
+    super(points.size());
+    assert points.size() == graph.getN();
     this.points = points;
+  }
+
+  public Points getPoints() {
+    return points;
   }
 
   public int crossingNumber() {
@@ -25,10 +29,10 @@ public class PlanarGraph extends Graph {
 
   public int compareTo(PlanarGraph that) {
     assert that != null;
-    if (this.edgesNumber() == that.edgesNumber()) {
+    if (this.getM() == that.getM()) {
       return Integer.compare(this.crossingNumber(), that.crossingNumber());
     }
-    return Integer.compare(this.edgesNumber(), that.edgesNumber());
+    return Integer.compare(this.getM(), that.getM());
   }
 
 }
