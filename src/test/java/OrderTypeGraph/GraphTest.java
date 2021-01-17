@@ -1,7 +1,7 @@
 package OrderTypeGraph;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.util.Arrays;
 import java.util.List;
@@ -60,8 +60,8 @@ public class GraphTest {
 
   @Test
   public void size() {
-    assertEquals(4, graph0.size());
-    assertEquals(2, graph1.size());
+    assertEquals(4, graph0.getM());
+    assertEquals(2, graph1.getM());
   }
 
   @Test
@@ -84,7 +84,7 @@ public class GraphTest {
   public void completeGraph() {
     for (int n : new int[]{1, 2, 3, 4, 5}) {
       Graph completeGraph = Graph.completeGraph(n);
-      assertEquals((n * (n - 1)) / 2, completeGraph.size());
+      assertEquals((n * (n - 1)) / 2, completeGraph.getM());
     }
   }
 }
