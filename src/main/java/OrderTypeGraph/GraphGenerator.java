@@ -23,10 +23,14 @@ public class GraphGenerator {
   }
 
   public static Proofs computeCCClosure(PlanarGraph planarGraph, boolean[] rules) {
-    Points points = planarGraph.getPoints();
+    return computeCCClosure(planarGraph, planarGraph.getPoints(), rules);
+
+  }
+
+  public static Proofs computeCCClosure(Graph graph, Points points, boolean[] rules) {
     PreCCSystem goal = points.computeCCSystem();
     GraphGenerator gg = new GraphGenerator(goal, rules);
-    return gg.computeCCClosure(planarGraph).getProofs();
+    return gg.computeCCClosure(graph).getProofs();
   }
 
   public static boolean isOTGraph(PlanarGraph planarGraph, boolean[] rules) {
