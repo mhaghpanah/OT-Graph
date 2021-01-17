@@ -30,16 +30,14 @@ public class GraphGenerator {
   }
 
   public static boolean isOTGraph(PlanarGraph planarGraph, boolean[] rules) {
-    Points points = planarGraph.getPoints();
-    PreCCSystem goal = points.computeCCSystem();
-    GraphGenerator gg = new GraphGenerator(goal, rules);
-    return gg.computeCCClosure(planarGraph).isComplete();
+    return isOTGraph(planarGraph, planarGraph.getPoints(), rules);
   }
 
-//  public static boolean isOTGraph(PreCCSystem goal, Graph graph, boolean[] rules) {
-//    GraphGenerator gg = new GraphGenerator(goal, rules);
-//    return gg.computeCCClosure(graph).isComplete();
-//  }
+  public static boolean isOTGraph(Graph graph, Points points, boolean[] rules) {
+    PreCCSystem goal = points.computeCCSystem();
+    GraphGenerator gg = new GraphGenerator(goal, rules);
+    return gg.computeCCClosure(graph).isComplete();
+  }
 
   public int getN() {
     return goal.getN();
