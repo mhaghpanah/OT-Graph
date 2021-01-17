@@ -11,7 +11,7 @@ public class PlanarGraph extends Graph {
   }
 
   public PlanarGraph(Graph graph, Points points) {
-    super(points.size());
+    super(graph);
     assert points.size() == graph.getN();
     this.points = points;
   }
