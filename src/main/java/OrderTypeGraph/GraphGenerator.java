@@ -12,7 +12,7 @@ public class GraphGenerator {
   Random rand;
   boolean[] rules;
 
-  GraphGenerator(PreCCSystem goal, boolean[] rules) {
+  public GraphGenerator(PreCCSystem goal, boolean[] rules) {
     this.goal = goal;
     rand = new Random();
     long seed = rand.nextLong();
@@ -22,14 +22,17 @@ public class GraphGenerator {
     this.rules = rules;
   }
 
+  public GraphGenerator(Points points, boolean[] rules) {
+    this(points.computeCCSystem(), rules);
+  }
+
   public static Proofs computeCCClosure(PlanarGraph planarGraph, boolean[] rules) {
     return computeCCClosure(planarGraph, planarGraph.getPoints(), rules);
 
   }
 
   public static Proofs computeCCClosure(Graph graph, Points points, boolean[] rules) {
-    PreCCSystem goal = points.computeCCSystem();
-    GraphGenerator gg = new GraphGenerator(goal, rules);
+    GraphGenerator gg = new GraphGenerator(points, rules);
     return gg.computeCCClosure(graph).getProofs();
   }
 
@@ -38,8 +41,7 @@ public class GraphGenerator {
   }
 
   public static boolean isOTGraph(Graph graph, Points points, boolean[] rules) {
-    PreCCSystem goal = points.computeCCSystem();
-    GraphGenerator gg = new GraphGenerator(goal, rules);
+    GraphGenerator gg = new GraphGenerator(points, rules);
     return gg.computeCCClosure(graph).isComplete();
   }
 
