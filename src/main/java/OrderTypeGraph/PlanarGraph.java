@@ -16,6 +16,13 @@ public class PlanarGraph extends Graph {
     this.points = points;
   }
 
+  public static PlanarGraph completeGraph(Points points) {
+    int n = points.size();
+    Graph completeGraph = Graph.completeGraph(n);
+    PlanarGraph planarGraph = new PlanarGraph(completeGraph, points);
+    return planarGraph;
+  }
+
   public Points getPoints() {
     return points;
   }
