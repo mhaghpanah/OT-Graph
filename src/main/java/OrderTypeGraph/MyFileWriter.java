@@ -14,7 +14,7 @@ public class MyFileWriter {
   }
 
   public static boolean write(String pathname, String str) {
-    MyFileWriter w = new MyFileWriter(pathname, Address.ROOT);
+    MyFileWriter w = new MyFileWriter(pathname, Address.RESULTS);
     return w.writeFile(str);
   }
 
