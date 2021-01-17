@@ -10,7 +10,7 @@ public class MyBinaryFileIO {
   File file;
 
   public MyBinaryFileIO(String suffixPath) {
-    file = MyFile.getInstance(suffixPath, Address.ROOT);
+    file = MyFile.getInstance(suffixPath, Address.RESULTS);
   }
 
   public static boolean write(String pathname, byte[] bytes) {
