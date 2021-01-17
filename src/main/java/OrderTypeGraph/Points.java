@@ -7,10 +7,12 @@ import java.util.Scanner;
 
 public class Points {
 
-  public List<Point> points;
-
+  private List<Point> points;
+  private PreCCSystem preCCSystem;
+  
   public Points() {
     points = new ArrayList<>();
+    preCCSystem = null;
   }
 
   public Points(List<Point> points) {
@@ -90,18 +92,20 @@ public class Points {
   }
 
   public PreCCSystem computeCCSystem() {
-    int n = points.size();
-    PreCCSystem ans = new PreCCSystem(n);
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < n; j++) {
-        for (int k = 0; k < n; k++) {
-          ans.setRelation(i, j, k, orientation(points.get(i), points.get(j), points.get(k)));
-          assert ans.getRelation(i, j, k) != 0 || i == j || j == k || i == k;
+    if (preCCSystem == null) {
+      int n = points.size();
+      preCCSystem = new PreCCSystem(n);
+      for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+          for (int k = 0; k < n; k++) {
+            preCCSystem.setRelation(i, j, k, orientation(points.get(i), points.get(j), points.get(k)));
+            assert preCCSystem.getRelation(i, j, k) != 0 || i == j || j == k || i == k;
+          }
         }
       }
+      assert preCCSystem.KnuthAxiomChecker();
     }
-    assert ans.KnuthAxiomChecker();
-    return ans;
+    return preCCSystem;
   }
 
   public String toFileFormatString() {
