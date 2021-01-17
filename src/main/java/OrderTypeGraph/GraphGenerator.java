@@ -26,25 +26,6 @@ public class GraphGenerator {
     this(points.computeCCSystem(), rules);
   }
 
-  public static Proofs computeCCClosure(PlanarGraph planarGraph, boolean[] rules) {
-    return computeCCClosure(planarGraph, planarGraph.getPoints(), rules);
-
-  }
-
-  public static Proofs computeCCClosure(Graph graph, Points points, boolean[] rules) {
-    GraphGenerator gg = new GraphGenerator(points, rules);
-    return gg.computeCCClosure(graph).getProofs();
-  }
-
-  public static boolean isOTGraph(PlanarGraph planarGraph, boolean[] rules) {
-    return isOTGraph(planarGraph, planarGraph.getPoints(), rules);
-  }
-
-  public static boolean isOTGraph(Graph graph, Points points, boolean[] rules) {
-    GraphGenerator gg = new GraphGenerator(points, rules);
-    return gg.computeCCClosure(graph).isComplete();
-  }
-
   public int getN() {
     return goal.getN();
   }
