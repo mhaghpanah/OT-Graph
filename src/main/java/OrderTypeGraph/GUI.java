@@ -1,5 +1,6 @@
 package OrderTypeGraph;
 
+import OrderTypeGraph.MyFile.Address;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,7 +58,7 @@ public class GUI extends JFrame {
       System.out.println(pathnamePrefix);
       System.out.println(fileName);
       System.out.println(pathname);
-      MyFileWriter.write(pathname, str, true);
+      MyFileWriter.write(pathname, str, Address.ROOT);
     } else if (rVal == JFileChooser.CANCEL_OPTION) {
       return;
     }
