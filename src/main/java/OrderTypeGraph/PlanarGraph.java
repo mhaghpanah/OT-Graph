@@ -3,7 +3,7 @@ package OrderTypeGraph;
 public class PlanarGraph extends Graph {
 
   Integer crossingNumber;
-  Points points;
+  private final Points points;
 
   public PlanarGraph(Points points) {
     super(points.size());
@@ -19,8 +19,7 @@ public class PlanarGraph extends Graph {
   public static PlanarGraph completeGraph(Points points) {
     int n = points.size();
     Graph completeGraph = Graph.completeGraph(n);
-    PlanarGraph planarGraph = new PlanarGraph(completeGraph, points);
-    return planarGraph;
+    return new PlanarGraph(completeGraph, points);
   }
 
   public Points getPoints() {
