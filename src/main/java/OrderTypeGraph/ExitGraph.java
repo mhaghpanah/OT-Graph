@@ -55,8 +55,7 @@ public class ExitGraph extends PlanarGraph {
           }
 
         }
-
-
+        
       }
     }
 
@@ -80,13 +79,13 @@ public class ExitGraph extends PlanarGraph {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("#");
-    sb.append(edgesNumber());
+    sb.append(getM());
     sb.append(" ");
     sb.append("{");
-    for (int i = 0; i < edgesNumber(); i++) {
+    for (int i = 0; i < getM(); i++) {
       sb.append(String
           .format("(%d, %d, %d)", getEdge(i).getU(), getEdge(i).getV(), getWitness(i)));
-      if (i + 1 < edgesNumber()) {
+      if (i + 1 < getM()) {
         sb.append(",");
       }
     }
