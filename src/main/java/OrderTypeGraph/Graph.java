@@ -21,7 +21,7 @@ public class Graph {
   }
 
   public Graph(Graph graph) {
-    this(graph.verticesNumber(), graph.getEdges());
+    this(graph.getN(), graph.getEdges());
   }
 
   public static Graph completeGraph(int n) {
@@ -60,9 +60,11 @@ public class Graph {
     return edges;
   }
 
-  public int verticesNumber() { return n; }
+  public int getN() {
+    return n;
+  }
 
-  public int edgesNumber() {
+  public int getM() {
     return edges.size();
   }
 
