@@ -1,7 +1,8 @@
 package OrderTypeGraph.Executable;
 
 import OrderTypeGraph.Graph;
-import OrderTypeGraph.GraphGeneratorFunctions;
+import OrderTypeGraph.GraphGeneratorWrapper;
+import OrderTypeGraph.GraphGeneratorWrapper.AlgorithmParameters;
 import OrderTypeGraph.Points;
 import java.time.Duration;
 import java.time.Instant;
@@ -15,6 +16,8 @@ public class RandomLargePoints {
       int n = 0;
       int repeatNum = 0;
       int algorithmType = 0;
+      boolean[] rules = new boolean[]{true, true, true};
+      
       try {
         n = Integer.parseInt(args[0]);
         repeatNum = Integer.parseInt(args[1]);
@@ -28,9 +31,11 @@ public class RandomLargePoints {
 
       Random random = new Random();
       Points points = Points.randomPointGenerator(n, random);
+      AlgorithmParameters algorithmParameters = new AlgorithmParameters(algorithmType, rules);
 
-      boolean[] rules = new boolean[]{true, true, true};
-      Graph ans = GraphGeneratorFunctions.generateGraph(points, algorithmType, rules, repeatNum);
+
+      Graph ans = GraphGeneratorWrapper
+          .generateGraphCrossOrder(points, algorithmParameters, repeatNum);
       System.out.printf("size edges: %d %s\n", ans.getM(), ans);
 
       Instant end = Instant.now();
