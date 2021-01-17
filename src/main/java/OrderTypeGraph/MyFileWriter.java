@@ -1,5 +1,6 @@
 package OrderTypeGraph;
 
+import OrderTypeGraph.MyFile.Address;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,17 +9,17 @@ public class MyFileWriter {
 
   File file;
 
-  public MyFileWriter(String suffixPath, boolean rootPath) {
-    file = MyFile.getInstance(suffixPath, rootPath);
+  public MyFileWriter(String suffixPath, Address prefix) {
+    file = MyFile.getInstance(suffixPath, prefix);
   }
 
   public static boolean write(String pathname, String str) {
-    MyFileWriter w = new MyFileWriter(pathname, false);
+    MyFileWriter w = new MyFileWriter(pathname, Address.ROOT);
     return w.writeFile(str);
   }
 
-  public static boolean write(String pathname, String str, boolean rootPath) {
-    MyFileWriter w = new MyFileWriter(pathname, rootPath);
+  public static boolean write(String pathname, String str, Address prefix) {
+    MyFileWriter w = new MyFileWriter(pathname, prefix);
     return w.writeFile(str);
   }
 
