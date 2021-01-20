@@ -89,4 +89,10 @@ public class PointTest {
     assertEquals(1, c.cross(a, b));
     assertEquals(-1, c.cross(b, a));
   }
+
+  @Test
+  public void testToString() {
+    Point p = new Point(-1, 1);
+    assertEquals("(-1, 1)", p.toString());
+  }
 }
