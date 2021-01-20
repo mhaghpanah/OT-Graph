@@ -11,7 +11,7 @@ public class PlanarGraphIpeDrawerTest {
 
   public void drawAndWrite() {
     int n = 6;
-    boolean[] rules = new boolean[] {true, true, true};
+    boolean[] rules = new boolean[]{true, true, true};
     String prefixPath = String
         .format("rules123%s%s%s%s", rules[0] ? "4" : "", rules[1] ? "5" : "", rules[2] ? "6" : "",
             File.separator);
@@ -24,7 +24,8 @@ public class PlanarGraphIpeDrawerTest {
       Points points = database.get(i);
       Graph graph = resultDatasetIO.getEdges(i);
       boolean addText = false;
-      PlanarGraphIpeDrawer.drawAndWrite(graph, points, String.format("z4_n%d_id%02d", n, i), addText);
+      PlanarGraphIpeDrawer
+          .drawAndWrite(graph, points, String.format("z4_n%d_id%02d", n, i), addText);
     }
 
   }
