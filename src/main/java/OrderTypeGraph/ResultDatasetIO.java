@@ -25,11 +25,12 @@ public class ResultDatasetIO {
       assert completeGraphBytes.length == resultSize;
       byte[] bytes = new byte[datasetSize * resultSize];
       for (int i = 0; i < datasetSize; i++) {
-        for (int j = 0; j < resultSize; i++) {
+        for (int j = 0; j < resultSize; j++) {
           bytes[i * resultSize + j] = completeGraphBytes[j];
         }
       }
-      myBinaryFileIO.writeFile(new byte[datasetSize * resultSize]);
+//      myBinaryFileIO.writeFile(new byte[datasetSize * resultSize]);
+      myBinaryFileIO.writeFile(bytes);
     }
 
   }
