@@ -7,7 +7,7 @@ public class Verifier {
     return v != null && v == 1;
   }
 
-  public static boolean verify(Points points, Graph graph, boolean[] rules) {
+  public static boolean verify(Graph graph, Points points, boolean[] rules) {
     PreCCSystem goal = points.computeCCSystem();
     int n = points.size();
     Integer[][][] orientations = new Integer[n][n][n];
