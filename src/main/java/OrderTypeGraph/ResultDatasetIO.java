@@ -51,7 +51,7 @@ public class ResultDatasetIO {
     return myBinaryFileIO.readFile(index * resultSize, resultSize);
   }
 
-  public Graph getEdges(int index) {
+  public Graph getGraph(int index) {
     byte[] bytes = getBytes(index);
     return Graph.toGraph(bytes, getN());
   }
@@ -61,7 +61,7 @@ public class ResultDatasetIO {
     myBinaryFileIO.writeFile(index * resultSize, bytes);
   }
 
-  public void setEdges(int index, Graph graph) {
+  public void setGraph(int index, Graph graph) {
     setBytes(index, graph.toBytes());
   }
 
