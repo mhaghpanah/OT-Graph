@@ -14,10 +14,11 @@ import java.util.stream.IntStream;
 
 public class Statistics {
 
-  public static List<Features> compute(int n, Database database, ResultDatasetIO resultDatasetIO, boolean[] rules) {
+  public static List<Features> compute(Database database, ResultDatasetIO resultDatasetIO, boolean[] rules) {
     List<Features> ans = new ArrayList<>();
+    int n = database.getN();
     for (int id = 0; id < Database.databaseSize(n); id++) {
-      Features features = new Features(n, id, database, resultDatasetIO, rules);
+      Features features = new Features(id, database, resultDatasetIO, rules);
       ans.add(features);
     }
     return ans;
@@ -31,17 +32,17 @@ public class Statistics {
     ResultDatasetIO resultDatasetIO =
         new ResultDatasetIO(n, database.size(), Graph.bitFormatSize(n), prefixPath);
 
-    return compute(n, database, resultDatasetIO, rules);
+    return compute(database, resultDatasetIO, rules);
   }
 
-  public static List<Features> computeParallel(int n, Database database, ResultDatasetIO resultDatasetIO, boolean[] rules, int threadNum)
+  public static List<Features> computeParallel(Database database, ResultDatasetIO resultDatasetIO, boolean[] rules, int threadNum)
       throws ExecutionException, InterruptedException {
     ForkJoinPool forkJoinPool = new ForkJoinPool(threadNum); // Configure the number of threads
     List<Features> ans =
         forkJoinPool.submit(() -> IntStream.range(0, database.size())
             .parallel()
             .mapToObj(id -> {
-              Features features = new Features(n, id, database, resultDatasetIO, rules);
+              Features features = new Features(id, database, resultDatasetIO, rules);
               return features;
             })
             .collect(Collectors.toList()))
@@ -60,7 +61,7 @@ public class Statistics {
     ResultDatasetIO resultDatasetIO =
         new ResultDatasetIO(n, database.size(), Graph.bitFormatSize(n), prefixPath);
 
-    return computeParallel(n, database, resultDatasetIO, rules, threadNum);
+    return computeParallel(database, resultDatasetIO, rules, threadNum);
   }
 
   public static void main(String[] args) throws ExecutionException, InterruptedException {
