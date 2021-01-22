@@ -22,7 +22,7 @@ public class PlanarGraphIpeDrawerTest {
 
     for (int i = 0; i < database.size(); i++) {
       Points points = database.get(i);
-      Graph graph = resultDatasetIO.getEdges(i);
+      Graph graph = resultDatasetIO.getGraph(i);
       boolean addText = false;
       PlanarGraphIpeDrawer
           .drawAndWrite(graph, points, String.format("z4_n%d_id%02d", n, i), addText);
