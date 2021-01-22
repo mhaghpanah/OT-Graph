@@ -15,7 +15,7 @@ public class ResultDatasetIOTest {
         new ResultDatasetIO(n, database.size(), Graph.bitFormatSize(n), "z");
 
     for (int i = 0; i < 6; i++) {
-      System.out.println(resultDatasetIO2.getEdges(i));
+      System.out.println(resultDatasetIO2.getGraph(i));
       System.out.println(Graph.toGraph(resultDatasetIO2.getBytes(i), n));
     }
 
@@ -32,11 +32,11 @@ public class ResultDatasetIOTest {
     List<Graph> list = Arrays.asList(graph0, graph1, graph2);
 
     for (int i = 0; i < list.size(); i++) {
-      resultDatasetIO.setEdges(i, list.get(i));
+      resultDatasetIO.setGraph(i, list.get(i));
     }
 
     for (int i = 0; i < 2 * list.size(); i++) {
-      System.out.println(resultDatasetIO.getEdges(i));
+      System.out.println(resultDatasetIO.getGraph(i));
       System.out.println(Graph.toGraph(resultDatasetIO.getBytes(i), n));
     }
   }
