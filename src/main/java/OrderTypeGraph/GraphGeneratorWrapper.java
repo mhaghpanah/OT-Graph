@@ -17,7 +17,9 @@ public class GraphGeneratorWrapper {
 
   public static boolean isOTGraph(Graph graph, Points points, boolean[] rules) {
     GraphGenerator gg = new GraphGenerator(points, rules);
-    return gg.computeCCClosure(graph).isComplete();
+    boolean ans = gg.computeCCClosure(graph).isComplete();
+    assert ans == Verifier.verify(graph, points, rules);
+    return ans;
   }
 
   public static Tuple<Graph, Proofs> generateGraphWithProofs(Points points,
