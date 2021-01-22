@@ -46,8 +46,6 @@ public class Verifier {
     boolean changed = true;
     while (changed) {
       changed = false;
-
-      System.err.println(count);
       count++;
 
       // rule 1
