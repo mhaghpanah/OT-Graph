@@ -20,13 +20,11 @@ public class Features {
 
   Integer otGraphComplexity;
 
-  public Features(int n, int id) {
-    this.n = n;
-    this.id = id;
-  }
+  public Features(int id, Points points, Graph otGraph, boolean[] rules) {
 
-  public Features(int n, int id, Points points, Graph otGraph, boolean[] rules) {
-    this(n, id);
+    n = points.size();
+    this.id = id;
+
     assert GraphGeneratorWrapper.isOTGraph(otGraph, points, rules);
     ExitGraph exitGraph = ExitGraph.generateGraph(points);
 
@@ -39,8 +37,8 @@ public class Features {
     otGraphComplexity = GraphGeneratorWrapper.computeCCClosure(otGraph, points, rules).getProofsComplexity();
   }
 
-  public Features(int n, int id, Database database, ResultDatasetIO resultDatasetIO, boolean[] rules) {
-    this(n, id, database.get(id), resultDatasetIO.getGraph(id), rules);
+  public Features(int id, Database database, ResultDatasetIO resultDatasetIO, boolean[] rules) {
+    this(id, database.get(id), resultDatasetIO.getGraph(id), rules);
   }
 
   @Override
