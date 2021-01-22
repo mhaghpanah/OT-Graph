@@ -67,7 +67,7 @@ public class ExitGraph extends PlanarGraph {
   }
 
   public void addEdge(Edge e, int w) {
-    addEdge(e);
+    super.addEdge(e);
     witnesses.add(w);
   }
 
