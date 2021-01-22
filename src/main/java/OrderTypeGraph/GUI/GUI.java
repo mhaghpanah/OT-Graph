@@ -106,7 +106,7 @@ public class GUI extends JFrame {
             }
 
             ResultDatasetIO resultDatasetIO = new ResultDatasetIO(n, prefixPath);
-            graph = resultDatasetIO.getEdges(id);
+            graph = resultDatasetIO.getGraph(id);
           } else if (comboBoxTypeValue.equalsIgnoreCase("Exit-Graph")) {
             graph = ExitGraph.generateGraph(points);
           } else if (comboBoxTypeValue.equalsIgnoreCase("Order-Types")) {
