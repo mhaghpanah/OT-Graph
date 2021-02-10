@@ -15,8 +15,10 @@ public class PlanarGraphIpeDrawer {
   Graph graph;
   Points points;
   double scaleFactor;
-  long minCoordinate;
-  long maxCoordinate;
+  long minX;
+  long maxX;
+  long minY;
+  long maxY;
   boolean addText;
 
   public PlanarGraphIpeDrawer(Graph graph, Points points, boolean addText) {
@@ -54,23 +56,33 @@ public class PlanarGraphIpeDrawer {
   }
 
   private double computeScaleFactor() {
-    maxCoordinate = Integer.MIN_VALUE;
-    minCoordinate = Integer.MAX_VALUE;
+    minX = Long.MAX_VALUE;
+    minY = Long.MAX_VALUE;
+    maxX = Long.MIN_VALUE;
+    maxY = Long.MIN_VALUE;
     for (int i = 0; i < points.size(); i++) {
       Point p = points.get(i);
-      minCoordinate = Math.min(minCoordinate, p.getX());
-      minCoordinate = Math.min(minCoordinate, p.getY());
+      minX = Math.min(minX, p.getX());
+      minY = Math.min(minY, p.getY());
 
-      maxCoordinate = Math.max(maxCoordinate, p.getX());
-      maxCoordinate = Math.max(maxCoordinate, p.getY());
+      maxX = Math.max(maxX, p.getX());
+      maxY = Math.max(maxY, p.getY());
     }
 
-    return Math.min(1.0, (double) drawSize / (maxCoordinate - minCoordinate));
+    double deltaX = maxX - minX;
+    double deltaY = maxY - minY;
+    return drawSize / Math.max(deltaX, deltaY);
+
+//    return Math.min(1.0, (double) drawSize / (maxCoordinate - minCoordinate));
   }
 
-  private int scale(long t) {
-    return (int) (((t - minCoordinate) * scaleFactor) + o);
+  private int scaleX(long t) {
+    return (int) (((t - minX) * scaleFactor) + o);
 //    return (int) (t / 3 + o);
+  }
+
+  private int scaleY(long t) {
+    return (int) (((t - minY) * scaleFactor) + o);
   }
 
   private void drawEdges() {
@@ -78,11 +90,11 @@ public class PlanarGraphIpeDrawer {
       Point u = points.get(edge.getU());
       Point v = points.get(edge.getV());
 
-      int ux = scale(u.getX());
-      int uy = scale(u.getY());
+      int ux = scaleX(u.getX());
+      int uy = scaleY(u.getY());
 
-      int vx = scale(v.getX());
-      int vy = scale(v.getY());
+      int vx = scaleX(v.getX());
+      int vy = scaleY(v.getY());
 
       output.append(drawIpePath(new int[]{ux, vx}, new int[]{uy, vy}));
     }
@@ -92,8 +104,8 @@ public class PlanarGraphIpeDrawer {
     int eps = 3;
     for (int i = 0; i < points.size(); i++) {
       Point point = points.get(i);
-      int x = scale(point.getX());
-      int y = scale(point.getY());
+      int x = scaleX(point.getX());
+      int y = scaleY(point.getY());
 
       output.append(drawIpeMark(x, y));
       if (addText) {
