@@ -16,8 +16,8 @@ public class CrossingNumber {
     computeCrossingNumber();
   }
 
-  public CrossingNumber(PlanarGraph planarGraph) {
-    this(planarGraph.getPoints(), planarGraph);
+  public CrossingNumber(PlaneGraph planeGraph) {
+    this(planeGraph.getPoints(), planeGraph);
   }
 
   public static int CrossingNumberCalc(Points points, Graph graph) {
