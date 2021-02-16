@@ -2,12 +2,12 @@ package OrderTypeGraph.Executable;
 
 import OrderTypeGraph.Database;
 import OrderTypeGraph.Graph;
-import OrderTypeGraph.PlanarGraphIpeDrawer;
+import OrderTypeGraph.PlaneGraphIpeDrawer;
 import OrderTypeGraph.Points;
 import OrderTypeGraph.ResultDatasetIO;
 import java.io.File;
 
-public class PlanarGraphIpeDrawerTest {
+public class PlaneGraphIpeDrawerTest {
 
   public void drawAndWrite() {
     int n = 6;
@@ -24,7 +24,7 @@ public class PlanarGraphIpeDrawerTest {
       Points points = database.get(i);
       Graph graph = resultDatasetIO.getGraph(i);
       boolean addText = false;
-      PlanarGraphIpeDrawer
+      PlaneGraphIpeDrawer
           .drawAndWrite(graph, points, String.format("z4_n%d_id%02d", n, i), addText);
     }
 
