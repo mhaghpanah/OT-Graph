@@ -3,7 +3,7 @@ package OrderTypeGraph;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExitGraph extends PlanarGraph {
+public class ExitGraph extends PlaneGraph {
 
   List<Integer> witnesses;
 
