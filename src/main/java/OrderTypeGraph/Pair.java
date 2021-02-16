@@ -1,12 +1,24 @@
 package OrderTypeGraph;
 
-public class Pair<X, Y> {
+public class Pair<K, V> {
 
-  public final X x;
-  public final Y y;
+  public final K k;
+  public final V v;
 
-  public Pair(X x, Y y) {
-    this.x = x;
-    this.y = y;
+  public Pair(K k, V v) {
+    this.k = k;
+    this.v = v;
+  }
+
+  public K getKey() {
+    return k;
+  }
+
+  public V getValue() {
+    return v;
+  }
+
+  public static <K, V> Pair<K, V> getInstance(K k, V v) {
+    return new Pair<>(k, v);
   }
 }
