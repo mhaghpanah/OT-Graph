@@ -2,8 +2,8 @@ package OrderTypeGraph;
 
 public class GraphGeneratorWrapper {
 
-  public static Proofs computeCCClosure(PlanarGraph planarGraph, boolean[] rules) {
-    return computeCCClosure(planarGraph, planarGraph.getPoints(), rules);
+  public static Proofs computeCCClosure(PlaneGraph planeGraph, boolean[] rules) {
+    return computeCCClosure(planeGraph, planeGraph.getPoints(), rules);
   }
 
   public static Proofs computeCCClosure(Graph graph, Points points, boolean[] rules) {
@@ -11,8 +11,8 @@ public class GraphGeneratorWrapper {
     return gg.computeCCClosure(graph).getProofs();
   }
 
-  public static boolean isOTGraph(PlanarGraph planarGraph, boolean[] rules) {
-    return isOTGraph(planarGraph, planarGraph.getPoints(), rules);
+  public static boolean isOTGraph(PlaneGraph planeGraph, boolean[] rules) {
+    return isOTGraph(planeGraph, planeGraph.getPoints(), rules);
   }
 
   public static boolean isOTGraph(Graph graph, Points points, boolean[] rules) {
@@ -66,14 +66,14 @@ public class GraphGeneratorWrapper {
     return ans;
   }
 
-  public static PlanarGraph generateGraphCrossOrder(Points points,
+  public static PlaneGraph generateGraphCrossOrder(Points points,
       AlgorithmParameters algorithmParameters, int repeatNum) {
-    PlanarGraph ans = PlanarGraph.completeGraph(points);
+    PlaneGraph ans = PlaneGraph.completeGraph(points);
     for (int i = 0; i < repeatNum; i++) {
       Graph graph = generateGraph(points, algorithmParameters);
-      PlanarGraph planarGraph = new PlanarGraph(graph, points);
-      if (planarGraph.compareTo(ans) < 0) {
-        ans = planarGraph;
+      PlaneGraph planeGraph = new PlaneGraph(graph, points);
+      if (planeGraph.compareTo(ans) < 0) {
+        ans = planeGraph;
       }
       System.out.printf("Iteration: %d Best so far: %d\n", i, ans.getM());
     }
