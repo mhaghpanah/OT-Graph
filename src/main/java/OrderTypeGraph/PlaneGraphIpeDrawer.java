@@ -7,7 +7,7 @@ import static OrderTypeGraph.IpeDraw.getIpeEnd;
 import static OrderTypeGraph.IpeDraw.getIpePreamble;
 import static OrderTypeGraph.IpeDraw.writeIpeText;
 
-public class PlanarGraphIpeDrawer {
+public class PlaneGraphIpeDrawer {
 
   final long drawSize = 300;
   final long o = 200;
@@ -21,7 +21,7 @@ public class PlanarGraphIpeDrawer {
   long maxY;
   boolean addText;
 
-  public PlanarGraphIpeDrawer(Graph graph, Points points, boolean addText) {
+  public PlaneGraphIpeDrawer(Graph graph, Points points, boolean addText) {
     output = new StringBuilder();
     this.graph = graph;
     this.points = points;
@@ -37,22 +37,22 @@ public class PlanarGraphIpeDrawer {
     output.append(getIpeEnd());
   }
 
-  public PlanarGraphIpeDrawer(PlanarGraph planarGraph, boolean addText) {
-    this(planarGraph, planarGraph.getPoints(), addText);
+  public PlaneGraphIpeDrawer(PlaneGraph planeGraph, boolean addText) {
+    this(planeGraph, planeGraph.getPoints(), addText);
   }
 
   public static String draw(Graph graph, Points points, boolean addText) {
-    PlanarGraphIpeDrawer pgid = new PlanarGraphIpeDrawer(graph, points, addText);
+    PlaneGraphIpeDrawer pgid = new PlaneGraphIpeDrawer(graph, points, addText);
     return pgid.output();
   }
 
-  public static void drawAndWrite(PlanarGraph planarGraph, String suffixPathOutput, boolean addText) {
-    drawAndWrite(planarGraph, planarGraph.getPoints(), suffixPathOutput, addText);
+  public static void drawAndWrite(PlaneGraph planeGraph, String suffixPathOutput, boolean addText) {
+    drawAndWrite(planeGraph, planeGraph.getPoints(), suffixPathOutput, addText);
   }
 
   public static void drawAndWrite(Graph graph, Points points, String suffixPathOutput, boolean addText) {
     MyFileWriter
-        .write(suffixPathOutput + ".ipe", PlanarGraphIpeDrawer.draw(graph, points, addText));
+        .write(suffixPathOutput + ".ipe", PlaneGraphIpeDrawer.draw(graph, points, addText));
   }
 
   private double computeScaleFactor() {
