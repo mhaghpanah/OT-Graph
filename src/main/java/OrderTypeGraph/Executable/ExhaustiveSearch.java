@@ -3,7 +3,7 @@ package OrderTypeGraph.Executable;
 import OrderTypeGraph.Database;
 import OrderTypeGraph.Graph;
 import OrderTypeGraph.GraphGeneratorWrapper;
-import OrderTypeGraph.PlanarGraph;
+import OrderTypeGraph.PlaneGraph;
 import OrderTypeGraph.Points;
 import OrderTypeGraph.ResultDatasetIO;
 import java.time.Duration;
@@ -15,14 +15,14 @@ public class ExhaustiveSearch {
   boolean[] rules;
   int n;
 //  Graph ans;
-  PlanarGraph ans;
+  PlaneGraph ans;
   public ExhaustiveSearch(Points points, boolean[] rules) {
     this.points = points;
     this.rules = rules;
 
     n = points.size();
 //    ans = Graph.completeGraph(n);
-    ans = PlanarGraph.completeGraph(points);
+    ans = PlaneGraph.completeGraph(points);
   }
 
   public Graph bottomUpCompute() {
@@ -44,12 +44,12 @@ public class ExhaustiveSearch {
           subsetGraph.addEdge(completeGraph.getEdge(a));
 
         if (GraphGeneratorWrapper.isOTGraph(subsetGraph, points, rules)) {
-          PlanarGraph planarGraph = new PlanarGraph(subsetGraph, points);
-          if (planarGraph.compareTo(ans) < 0) ans = planarGraph;
+          PlaneGraph planeGraph = new PlaneGraph(subsetGraph, points);
+          if (planeGraph.compareTo(ans) < 0) ans = planeGraph;
           notFound = false;
 
 //          ans = subsetGraph;
-//          break;
+          break;
         }
 
       }
