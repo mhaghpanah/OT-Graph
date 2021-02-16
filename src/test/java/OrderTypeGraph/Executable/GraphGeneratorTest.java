@@ -6,7 +6,7 @@ import OrderTypeGraph.GraphGeneratorWrapper;
 import OrderTypeGraph.GraphGeneratorWrapper.AlgorithmParameters;
 import OrderTypeGraph.Points;
 import OrderTypeGraph.Proofs;
-import OrderTypeGraph.Tuple;
+import OrderTypeGraph.Pair;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -18,12 +18,12 @@ public class GraphGeneratorTest {
     AlgorithmParameters algorithmParameters = new AlgorithmParameters(0, rules);
     for (int i = 0; i < database.size(); i++) {
       Points points = database.get(i);
-      Tuple<Graph, Proofs> tuple = GraphGeneratorWrapper
+      Pair<Graph, Proofs> pair = GraphGeneratorWrapper
           .generateGraphWithProofs(points, algorithmParameters);
 
       System.out.printf("%06d %s\n", i, points);
-      System.out.printf("edges size: %d %s\n", tuple.x.getM(), tuple.x);
-      System.out.printf("proofs size: %d %s\n", tuple.y.size(), tuple.y);
+      System.out.printf("edges size: %d %s\n", pair.getKey().getM(), pair.getKey());
+      System.out.printf("proofs size: %d %s\n", pair.getValue().size(), pair.getValue());
       System.out.println("------------------------------");
     }
   }
@@ -34,12 +34,12 @@ public class GraphGeneratorTest {
     AlgorithmParameters algorithmParameters = new AlgorithmParameters(0, rules);
     for (int i = 0; i < database.size(); i++) {
       Points points = database.get(i);
-      Tuple<Graph, Proofs> tuple = GraphGeneratorWrapper
+      Pair<Graph, Proofs> pair = GraphGeneratorWrapper
           .generateGraphWithProofs(points, algorithmParameters);
 
       System.out.printf("%06d %s\n", i, points);
-      System.out.printf("edges size: %d %s\n", tuple.x.getM(), tuple.x);
-      System.out.printf("proofs size: %d %s\n", tuple.y.size(), tuple.y);
+      System.out.printf("edges size: %d %s\n", pair.getKey().getM(), pair.getKey());
+      System.out.printf("proofs size: %d %s\n", pair.getValue().size(), pair.getValue());
       System.out.println("------------------------------");
     }
   }
