@@ -22,7 +22,7 @@ public class GraphGeneratorWrapper {
     return ans;
   }
 
-  public static Tuple<Graph, Proofs> generateGraphWithProofs(Points points,
+  public static Pair<Graph, Proofs> generateGraphWithProofs(Points points,
       AlgorithmParameters algorithmParameters) {
     GraphGenerator gg = new GraphGenerator(points, algorithmParameters.rules);
     Graph graph;
@@ -37,7 +37,7 @@ public class GraphGeneratorWrapper {
         throw new IllegalArgumentException();
     }
 
-    return new Tuple<>(graph, gg.computeCCClosure(graph).getProofs());
+    return new Pair<>(graph, gg.computeCCClosure(graph).getProofs());
   }
 
   public static Graph generateGraph(Points points, AlgorithmParameters algorithmParameters) {
